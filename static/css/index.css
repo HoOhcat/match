@@ -1,0 +1,265 @@
+* {
+    padding: 0;
+    margin: 0;
+    font-family: "微软雅黑", "黑体";
+    font-size: 16px;
+    list-style: none;
+    z-index: 1px;
+}
+
+button{
+    cursor: pointer;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+}
+
+body{
+    position: relative;
+    overflow: hidden;
+}
+
+.member_message{
+    display: none;
+    position: absolute;
+    width: 400px;
+    height: 100px;
+    left: 500px;
+    top: 150px;
+    z-index: 999;
+    background: #fff;
+    border-radius: 5px;
+}
+
+.member_message_warrper{
+    width: 100%;
+    height: 100%;
+    position: relative;
+    overflow: hidden;
+    
+}
+
+.member_message_warrper .message{
+    display: inline-block;
+    float: left;
+    margin: 30px 25px;
+}
+
+.member_message .member_message_warrper span.message{
+    height: 30px;
+    line-height: 30px;
+    text-align: center;
+}
+
+.member_message .member_message_warrper input{
+    width: 148px;
+    height: 28px;
+    padding-left: 5px;
+    margin-left: 5px;
+    line-height: 30px;
+    border: 1px solid #000;
+    border-radius: 8px;
+    outline: none;
+    font-size: 14px;
+}
+
+.member_message_warrper input:focus{
+    border: 1px solid #b85555;
+}
+
+.member_message_warrper .submit{
+    width: 50px;
+    height: 30px;
+    font-size: 16px;
+    line-height: 30px;
+    border: none;
+    border-radius: 5px;
+    text-align: center;
+}
+
+.member_message_warrper .submit:hover{
+    background: #b85555;
+    color: #fff;
+}
+
+.member_message_close{
+    display: block;
+    position: absolute;
+    border-radius: 5px;
+    width: 20px;
+    height: 20px;
+    line-height: 20px;
+    text-align: center;
+    top: 0;
+    right: 0;
+    background: #fff;
+    color: #000;
+}
+.member_message_close::before{
+    content: "\2716";
+}
+
+.member_message_close:hover{
+    background: #b85555;
+    color: #fff;
+}
+
+
+.wrapper {
+    margin: 30px auto;
+    width: 1000px;
+    height: 1000px;
+    border: 1px solid #000;
+    border-radius: 5px;
+}
+
+.option_wrapper {
+    width: 100%;
+    height: 50px;
+    display: flex;
+}
+
+.option_wrapper .option {
+    display: border-box;
+    height: 50px;
+    border: 1px solid #000;
+    width: 50%;
+    line-height: 48px;
+    text-align: center;
+    border-radius: 5px;
+}
+
+.option_wrapper .option:hover {
+    background: #b85555;
+    color: #fff;
+}
+
+.content_wrapper {
+    margin: 25px 0;
+    width: 100%;
+    height: 800px;
+}
+
+.content_wrapper .player {
+    margin: 10px 10px;
+    display: inline-block;
+    width: 100px;
+    height: 50px;
+    line-height: 50px;
+    text-align: center;
+    border-radius: 5px;
+}
+
+.content_wrapper .player:hover {
+    cursor: pointer;
+    background: #b85555;
+    color: #fff;
+}
+
+.player_chosen {
+    background: #b85555;
+    color: #fff;
+}
+
+.player_wait {
+    background: gray;
+    color: #000;
+}
+
+.content_wrapper .addplayer{
+    margin: 10px 10px;
+    display: inline-block;
+    width: 100px;
+    height: 50px;
+    line-height: 50px;
+    text-align: center;
+    border-radius: 5px;
+    border: 1px solid #000;
+}
+
+.content_wrapper .addplayer:hover {
+    cursor: pointer;
+    background: #b85555;
+    color: #fff;
+}
+
+.order_wrapper ul{
+    list-style: none;
+    height: 100px;
+}
+
+.order_wrapper ul li{
+    display: inline-block;
+    float: left;
+    margin: 10px 20px;
+    height: 30px;
+    width: 280px;
+    line-height: 30px;
+}
+
+
+.order_wrapper ul li .order_message{
+    margin: 8px;
+}
+
+.order_wrapper ul li .order_message.name{
+    display: inline-block;
+    width: 58px;
+    text-align: center;
+}
+
+.order_wrapper ul li input.order_message{
+    display:inline-block;
+    margin-left: 0;
+    width: 25px;
+    height: 20px;
+    line-height: 20px;
+    border: 1px solid #000;
+    border-radius: 5px;
+    text-align: center;
+}
+
+.order_wrapper button{
+    display: inline-block;
+    margin: 25px;
+    width: 80px;
+    height: 35px;
+    line-height: 35px;
+    border: 0;
+    border-radius: 8px;
+}
+
+
+.svg {
+    height: 800px;
+    width: 1000px;
+}
+
+.svgtext{
+    text-anchor:middle;
+    dominant-baseline:central;
+    font-size: 12px;
+}
+
+.svgnormalline{
+    stroke: #808080;
+    fill: none;
+}
+
+.svgchosenline{
+}
+
+#cover{
+    display: none;
+    position: absolute;
+    left: 0;
+    top: 0;
+    height: 100%;
+    width: 100%;
+    filter: alpha(opacity=60);
+    opacity: 0.6;
+    z-index: 100;
+    background:#000;  
+}
