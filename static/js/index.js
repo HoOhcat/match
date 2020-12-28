@@ -181,7 +181,7 @@ var svginit =()=>{
     if (p!=null){
         str += ['<g>',
         '<ellipse cx=\"' + p.x + '\" cy=\"' + p.y + '\" rx=\"' + rx +'\"ry=\"'+ry + '\" stroke=\"black\"',
-        'stroke-width=\"2\" fill=\"#c0cdc8\">',
+        'stroke-width=\"2\" fill=\"#e6edf4\">',
         '</ellipse>',
         '<text x=\"'+p.x +'\" y=\"'+ p.y +'\" class=\"svgtext\">'+(p.value || '')+'</text>',
         '</g>'].join('');
@@ -263,8 +263,8 @@ var playerOrder= (m)=>{
             return;
         }
 
-        console.log(value);
-        console.log(op[0].m);
+        //console.log(value);
+        //console.log(op[0].m);
         result=changeOrder(op[0].m,value);
         changeOrderWrapper($_order_wrapper,result);
         op[0].m=result;
@@ -335,7 +335,7 @@ var init = (member) => {
     $_option_warpper = $('.option_wrapper').eq(0);
     $_option = $('.option_wrapper .option');
     str = '';
-    for (i = 0; i < $_option.length; i++) {
+    for (i = 0; i < ($_option.length+1); i++) {
         str += ['<div class=\"content_wrapper\">', '</div>'].join('');
     }
     $_option.parent().next().html(str);
@@ -343,17 +343,19 @@ var init = (member) => {
     $_content_wrapper = $('.content_wrapper');
     $_player_wrapper = $_content_wrapper.eq(0);
     $_match_wrapper = $_content_wrapper.eq(2);
+    $_option_march = $_option.eq(1).children().eq(0).children();
 
     
-    //选项卡元素
+    //选手页面切换事件
     $_option_warpper.curIndex = 0;
-    for (i = 0; i < $_option.length; i++) {
+    for (i = 0; i < 1; i++) {
         $_option[i].index = i;
         $_option.eq(i).on("click", function(ev) {
             ev && ev.stopPropagation();
             if ($_option_warpper.curIndex != this.index) {
                 $_option_warpper.curIndex = this.index;
                 $_option.eq(this.index).addClass('player_chosen').siblings().removeClass('player_chosen');
+                $_option_march.removeClass('player_chosen');
                 $_content_wrapper.eq(this.index).show().siblings().hide();
                 switchoption($_option_warpper);
             }
@@ -363,6 +365,21 @@ var init = (member) => {
     $_option.eq($_option_warpper.curIndex).addClass('player_chosen')
     $_content_wrapper.hide().eq($_option_warpper.curIndex).show();
     switchoption($_option_warpper);
+
+    //对阵图页面事件
+    for(i=0;i<$_option_march.length;i++){
+        $_option_march[i].index=i+1;
+        $_option_march.eq(i).on('click',function(ev){
+            ev && ev.stopPropagation();
+            if ($_option_warpper.curIndex != this.index) {
+                $_option_warpper.curIndex = this.index;
+                $_option_march.eq(this.index-1).addClass('player_chosen').siblings().removeClass('player_chosen');
+                $_option.eq(0).removeClass('player_chosen');
+                $_content_wrapper.eq(this.index).show().siblings().hide();
+                switchoption($_option_warpper);
+            }
+        })
+    }
 
     //添加成员事件
     $('.member_message .member_message_warrper .submit').on('click',(ev)=>{

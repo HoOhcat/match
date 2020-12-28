@@ -2,7 +2,6 @@
     padding: 0;
     margin: 0;
     font-family: "微软雅黑", "黑体";
-    font-size: 16px;
     list-style: none;
     z-index: 1px;
 }
@@ -117,21 +116,50 @@ body{
 
 .option_wrapper {
     width: 100%;
-    height: 50px;
+    height: 72px;
     display: flex;
 }
 
-.option_wrapper .option {
+.option_wrapper .option{
     display: border-box;
-    height: 50px;
+    height: 70px;
     border: 1px solid #000;
+    line-height: 70px;
     width: 50%;
-    line-height: 48px;
     text-align: center;
     border-radius: 5px;
+    font-size: 20px;
 }
 
-.option_wrapper .option:hover {
+.option_wrapper .option:nth-child(1):hover {
+    background: #b85555;
+    color: #fff;
+}
+
+.option_wrapper .option ul{
+    list-style: none;
+    width: 100%;
+    height: 100%;
+    display: block;
+    line-height: 0;
+}
+
+.option_wrapper .option ul li.option_graph{
+    display: inline-block;
+    height: 33px;
+    width: 496px;
+    margin: 0;
+    line-height: 33px;
+    border: 1px solid #000;
+    font-size: 16px;
+}
+
+.option_wrapper .option ul li.option_graph.player_chosen{
+    background: #b85555;
+    color: #fff;
+}
+
+.option_wrapper .option ul li.option_graph:hover{
     background: #b85555;
     color: #fff;
 }

@@ -1,4 +1,4 @@
-const path = require('path');
+//const path = require('path');
 const express = require('express');
 const app = express();
 const port=3008;
@@ -39,9 +39,9 @@ function database(sql,callback){
     connect.end();
 }
 
-app.use('/',express.static(path.join(__dirname,'/static/html/')));
+app.use('/',express.static('./static/html/'));
 
-app.use(express.static((path.join(__dirname,'/static/'))));
+app.use(express.static('./static/'));
 
 app.get('/member',(req , res ,next ) =>{
     //处理跨域问题
