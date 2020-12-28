@@ -1,7 +1,7 @@
-const path=require('path');
+const path = require('path');
 const express = require('express');
 const app = express();
-const port=3000;
+const port=3008;
 const mysql =require('mysql');
 
 
@@ -17,7 +17,7 @@ function database(sql,callback){
         user:'root',
         password : '123456',
         database:'matchtest',
-        port: '3308'
+        port: '3306'
     });
 
     connect.connect();
