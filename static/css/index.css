@@ -131,7 +131,7 @@ body{
     font-size: 20px;
 }
 
-.option_wrapper .option:nth-child(1):hover {
+.option_wrapper .option:hover {
     background: #b85555;
     color: #fff;
 }

@@ -4,7 +4,7 @@ var changeOrder =(playername,playorder)=>{
     playerOrdername=[];
 
     for (i = 0;i < n; i++){
-        playerOrdername[playorder[i]]=playername[i];
+        playerOrdername[playorder[i]]=(i+1)+'.'+playername[i].slice(2);
     }
 
     return playerOrdername;
@@ -41,7 +41,7 @@ var randomOrder =(playername,value)=>{
     }
 
     for(i=0;i<n;i++){
-        playerOrdername[i]=playername[playorder[i]];
+        playerOrdername[i]=(i+1)+'.'+playername[playorder[i]].slice(2);
     }
 
     return playerOrdername;

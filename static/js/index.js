@@ -35,7 +35,7 @@ var getChosenPlayer = ()=>{
     str='';
     for (i=0;i<$_player.length;i++){
         if ($_player[i].chosen==1){
-            str+=$_player.eq(i).children().eq(0).html()+'   ';
+            str+=((i+1)+'.'+$_player.eq(i).children().eq(0).html()+'   ');
         }
     }
     if (!str){
@@ -66,7 +66,7 @@ var playerinit= (member)=>{
     str+=['<div class=\"addplayer\">',
     '<span></span>',
     '</div>'
-    ]
+    ].join('');
     $_player_wrapper.html(str);
 
     
@@ -133,11 +133,11 @@ var playerinit= (member)=>{
 
 
 
-var svginit =()=>{
+var svginit =($_match_wrapper,callback)=>{
 
     op=$('.option_wrapper').eq(0);
 
-    $_match_wrapper=$('.content_wrapper').eq(2);
+    //$_match_wrapper=$('.content_wrapper').eq(2);
 
     //svg图初始
     $_match_wrapper.html(['<svg class=\"svg\" xmlns=\"http://www.w3.org/2000/svg\" version=\"1.1\">',
@@ -158,16 +158,17 @@ var svginit =()=>{
     head.y=50;
     head.offsetx=220;
     Traversal(head,function (p){
-    if (p.left!=null){
-        p.left.x=p.x-p.offsetx;
-        p.left.y=p.y+60;
-        p.left.offsetx=p.offsetx/2;
-    }
-    if (p.right!=null){
-        p.right.x=p.x+p.offsetx;
-        p.right.y=p.y+60;
-        p.right.offsetx=p.offsetx/2;
-    }
+        callback && callback(p);
+        if (p.left!=null){
+            p.left.x=p.x-p.offsetx;
+            p.left.y=p.y+60;
+            p.left.offsetx=p.offsetx/2;
+        }
+        if (p.right!=null){
+            p.right.x=p.x+p.offsetx;
+            p.right.y=p.y+60;
+            p.right.offsetx=p.offsetx/2;
+        }
     })
 
     //Traversal
@@ -203,7 +204,7 @@ var changeOrderWrapper = ($_order_wrapper,m)=>{
     if (m){
         for(i=0;i<m.length;i++){
             str+=['<li>',
-            '<span class=\"order_message name\">'+m[i]+'</span>',
+            '<span class=\"order_message name\">'+m[i].slice(2)+'</span>',
             '<span class=\"order_message\">位置</span>',
             '<input class=\"order_message\" type=\"number\" value=\"'+(i+1)+'\" />',
             '<span class=\"order_message\">位置权值</span>',
@@ -223,9 +224,11 @@ var playerOrder= (m)=>{
     $_order_wrapper=$('.content_wrapper').eq(1).addClass('order_wrapper');
 
     str='';
-    str+=['<div><button>修改</button><button>乱序</button></div>',
+    str+=['<div><button>修改</button><button>乱序</button><button>更新对阵图</button></div>',
         '<div>',
         '<ul></ul>',
+    '</div>',
+    '<div>',
     '</div>'
     ].join('');
     $_order_wrapper.html(str);
@@ -292,6 +295,13 @@ var playerOrder= (m)=>{
         op[0].m=result;
     })
 
+    //更新对阵图
+    $_order_wrapper.children().eq(0).children().eq(2).on('click',(ev)=>{
+        ev && ev.stopPropagation();
+
+        $_match_wrapper= $_order_wrapper.children().eq(2);
+        svginit($_match_wrapper);
+    })
 }
 
 var switchoption = (op)=>{
@@ -325,7 +335,11 @@ var switchoption = (op)=>{
         case 1:{
                 playerOrder(op[0].m);
         }break;
-        case 2:{svginit();}break;
+        case 2:{svginit($('.content_wrapper').eq(2),(p)=>{
+            if(p.value){
+                p.value=p.value.slice(2);
+            }
+        })}break;
     }
 }
 
@@ -355,7 +369,7 @@ var init = (member) => {
             if ($_option_warpper.curIndex != this.index) {
                 $_option_warpper.curIndex = this.index;
                 $_option.eq(this.index).addClass('player_chosen').siblings().removeClass('player_chosen');
-                $_option_march.removeClass('player_chosen');
+                //$_option_march.removeClass('player_chosen');
                 $_content_wrapper.eq(this.index).show().siblings().hide();
                 switchoption($_option_warpper);
             }
