@@ -343,12 +343,12 @@ var init = (member) => {
     $_content_wrapper = $('.content_wrapper');
     $_player_wrapper = $_content_wrapper.eq(0);
     $_match_wrapper = $_content_wrapper.eq(2);
-    $_option_march = $_option.eq(1).children().eq(0).children();
+    //$_option_march = $_option.eq(1).children().eq(0).children();
 
     
     //选手页面切换事件
     $_option_warpper.curIndex = 0;
-    for (i = 0; i < 1; i++) {
+    for (i = 0; i < $_option.length; i++) {
         $_option[i].index = i;
         $_option.eq(i).on("click", function(ev) {
             ev && ev.stopPropagation();
@@ -366,7 +366,8 @@ var init = (member) => {
     $_content_wrapper.hide().eq($_option_warpper.curIndex).show();
     switchoption($_option_warpper);
 
-    //对阵图页面事件
+    /*
+    //对阵图页面事件(废案)
     for(i=0;i<$_option_march.length;i++){
         $_option_march[i].index=i+1;
         $_option_march.eq(i).on('click',function(ev){
@@ -380,6 +381,7 @@ var init = (member) => {
             }
         })
     }
+    */
 
     //添加成员事件
     $('.member_message .member_message_warrper .submit').on('click',(ev)=>{
