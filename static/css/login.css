@@ -1,0 +1,43 @@
+* {
+    padding: 0;
+    margin: 0;
+    font-family: "微软雅黑", "黑体";
+    list-style: none;
+    z-index: 1px;
+}
+
+
+.login_wrapper{
+    margin: 100px auto;
+    width: 800px;
+    height: 600px;
+    position: relative;
+}
+
+.login_view{
+    margin: 0 auto;
+    width: 100px;
+    height: 100px;
+}
+
+.login_input{
+
+}
+
+.login_input .password{
+    width: 600px;
+    height: 40px;
+    border: 1px solid #6d6868;
+    border-radius: 10px;
+    padding-left: 10px;
+    line-height: 40px;
+}
+
+.login_input button{
+    width: 100px;
+    height: 50px;
+    border: 1px solid #6d6868;
+    border-radius: 10px;
+    text-align: center;
+    line-height: 30px;
+}

@@ -56,6 +56,14 @@ var nodemember = function(a){
     return m; 
 }
 
+var searchNodeX = function(x,p,callback){
+    if (!p){return null;}
+    if (p.x>x){return searchNodeX(x,p.left,callback)}
+    if (p.x<x){return searchNodeX(x,p.right,callback)}
+    
+    return p;
+}
+
 var matchgragh = function(member,n) {
     //console.log(n);
     if (n==1){

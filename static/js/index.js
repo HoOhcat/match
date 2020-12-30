@@ -149,6 +149,10 @@ var svginit =($_match_wrapper,callback)=>{
     (op[0].m) && (m = op[0].m);
     (!m) && (m=getChosenPlayer());
 
+    if (!m){
+        return;
+    }
+
     //temp = nodemember(m);
     //head =matchgragh(temp,temp.length);
     head=matchgraghplayer(m);
@@ -163,11 +167,13 @@ var svginit =($_match_wrapper,callback)=>{
             p.left.x=p.x-p.offsetx;
             p.left.y=p.y+60;
             p.left.offsetx=p.offsetx/2;
+            p.left.top=p;
         }
         if (p.right!=null){
             p.right.x=p.x+p.offsetx;
             p.right.y=p.y+60;
             p.right.offsetx=p.offsetx/2;
+            p.right.top=p;
         }
     })
 
@@ -175,14 +181,15 @@ var svginit =($_match_wrapper,callback)=>{
     str = '';   
     rx=38;   //长轴
     ry=20;    //短轴
+    str='';
     /*head = { 'left': null, 'right': null, 'x': 300, 'y': 60 ,value : 'N聚'};
     head.left = { 'left': null, 'right': null, 'x': head.x - 60, 'y': head.y + 100 ,value:'rami3e'};
     head.right = { 'left': null, 'right': null, 'x': head.x + 60, 'y': head.y + 100 ,value:'lunan'};*/
     Traversal(head,function (p){
     if (p!=null){
-        str += ['<g>',
+        str += ['<g class=\"node\">',
         '<ellipse cx=\"' + p.x + '\" cy=\"' + p.y + '\" rx=\"' + rx +'\"ry=\"'+ry + '\" stroke=\"black\"',
-        'stroke-width=\"2\" fill=\"#e6edf4\">',
+        'stroke-width=\"2\" fill=\"#e6edf4\" >',
         '</ellipse>',
         '<text x=\"'+p.x +'\" y=\"'+ p.y +'\" class=\"svgtext\">'+(p.value || '')+'</text>',
         '</g>'].join('');
@@ -194,8 +201,26 @@ var svginit =($_match_wrapper,callback)=>{
         }
     }
     })
+    
     $svg_warpper.html(str);
 
+    $_node=$('ellipse');
+    for(i=0;i<$_node.length;i++){
+        target = searchNodeX($_node[i].cx.baseVal.value,head);
+        target.graph=$_node[i];
+        $_node[i].node=target;
+        $_node.eq(i).on('click',function (ev){
+            ev && ev.stopPropagation();
+
+            if (!this.node.top){return;}
+            if (this.node.value){
+                //记录胜者
+                $(this.node.top.graph).siblings().eq(0).html(this.node.value);
+                this.node.top.value=this.node.value;
+                //$(this).css({"fill":"green"});
+            }
+        });
+    }
 }
 
 var changeOrderWrapper = ($_order_wrapper,m)=>{
@@ -224,12 +249,17 @@ var playerOrder= (m)=>{
     $_order_wrapper=$('.content_wrapper').eq(1).addClass('order_wrapper');
 
     str='';
-    str+=['<div><button>修改</button><button>乱序</button><button>更新对阵图</button></div>',
+    str+=['<div>',
+            '<button>修改</button>',
+            '<button>乱序</button>',
+            '<button>更新对阵图</button>',
+            '<button>save</button>',
+        '</div>',
         '<div>',
-        '<ul></ul>',
-    '</div>',
-    '<div>',
-    '</div>'
+            '<ul></ul>',
+        '</div>',
+        '<div>',
+        '</div>'
     ].join('');
     $_order_wrapper.html(str);
 
