@@ -2,9 +2,11 @@ var changeOrder =(playername,playorder)=>{
     //指定排对阵
     n=playername.length;
     playerOrdername=[];
+    
+    
 
     for (i = 0;i < n; i++){
-        playerOrdername[playorder[i]]=(i+1)+'.'+playername[i].slice(2);
+        playerOrdername[playorder[i]]=(playorder[i]+1)+'.'+playername[i].slice(2);
     }
 
     return playerOrdername;

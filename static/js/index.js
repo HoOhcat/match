@@ -35,13 +35,16 @@ var getChosenPlayer = ()=>{
     str='';
     for (i=0;i<$_player.length;i++){
         if ($_player[i].chosen==1){
-            str+=((i+1)+'.'+$_player.eq(i).children().eq(0).html()+'   ');
+            str+=($_player.eq(i).children().eq(0).html()+'   ');
         }
     }
     if (!str){
         return null;
     }
     (m=str.split('   ')).pop();
+    for(i=0;i<m.length;i++){
+        m[i]=(i+1)+'.'+m[i];
+    }
     return m;
 }
 
@@ -97,7 +100,7 @@ var playerinit= (member)=>{
             }
             op[0].m=getChosenPlayer();
         })
-        //长按时间
+        //长按删除选手事件
         $_player.eq(i).on('mousedown',function (ev){
             ev && ev.stopPropagation();
             this.curTime=0;
@@ -204,19 +207,19 @@ var svginit =($_match_wrapper,callback)=>{
     
     $svg_warpper.html(str);
 
-    $_node=$('ellipse');
+    $_node=$_match_wrapper.children('svg').children('g').children('ellipse');
     for(i=0;i<$_node.length;i++){
         target = searchNodeX($_node[i].cx.baseVal.value,head);
         target.graph=$_node[i];
         $_node[i].node=target;
-        $_node.eq(i).on('click',function (ev){
+        $_node.eq(i).parent().on('click',function (ev){
             ev && ev.stopPropagation();
-
-            if (!this.node.top){return;}
-            if (this.node.value){
+            temp=$(this).children('ellipse')[0];
+            if (!temp.node.top){return;}
+            if (temp.node.value){
                 //记录胜者
-                $(this.node.top.graph).siblings().eq(0).html(this.node.value);
-                this.node.top.value=this.node.value;
+                $(temp.node.top.graph).siblings().eq(0).html(temp.node.value);
+                temp.node.top.value=temp.node.value;
                 //$(this).css({"fill":"green"});
             }
         });
@@ -275,6 +278,7 @@ var playerOrder= (m)=>{
             value[i] = $_playerList.eq(i).children('input')[0].value-1;
         }
 
+        //种子选手处理
         flag=0;
         for(i=0;i<value.length;i++){
             if (value[i]>=value.length || value[i]<0){
